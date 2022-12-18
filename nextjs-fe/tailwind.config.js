@@ -5,8 +5,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./layouts/**/*.{js,ts,jsx,tsx}"
   ],
+  important: true,
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        'roboto-slab':['Roboto Slab', 'serif'],
+      }
+    },
   },
   plugins: [],
 }
