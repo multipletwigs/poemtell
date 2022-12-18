@@ -1,4 +1,4 @@
-import Poemtell from "@/components/atoms/Poemtell";
+import Poemtell from "@/components/Poemtell";
 import { siteMetaData, SiteMetaData } from "@/site_data/siteMetaData";
 import Head from "next/head";
 import { ReactNode } from "react";
@@ -26,9 +26,9 @@ const CenterContainer = (props: CenterContainerProps) => {
         <title>{additionalData.title}</title>
         <meta name="description" content={additionalData.description} />
       </Head>
-      <main className="w-full h-screen flex flex-col justify-center items-center">
-        <Poemtell />
+      <main className="w-full h-screen flex flex-col items-center">
         <div className="w-3/4 lg:w-1/2">
+        <Poemtell />
           {props.children}
         </div>
       </main>

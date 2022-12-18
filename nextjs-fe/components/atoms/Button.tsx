@@ -10,7 +10,7 @@ interface ButtonProps {
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className="bg-indigo-400 text-white px-5 py-2 rounded-lg font-roboto-slab"
+      className="bg-slate-600 text-white font-bold px-8 rounded-lg h-[fit-content] py-2 hover:outline outline-2 outline-slate-100"
       onClick={() => props.onClick()}
     >
       {props.children}

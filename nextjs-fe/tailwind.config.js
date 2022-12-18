@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        'roboto-slab':['Roboto Slab', 'serif'],
+        'sans':['Inter', 'sans-serif'],
       }
     },
   },
