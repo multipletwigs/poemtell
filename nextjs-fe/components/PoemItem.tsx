@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "../atoms/Button";
-import PoemDialog from "../PoemDialog";
+import Button from "./Button";
+import PoemDialog from "./PoemDialog";
 
 interface PoemItemProps {
   title: string;

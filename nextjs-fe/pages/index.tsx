@@ -1,6 +1,6 @@
-import Button from "@/components/atoms/Button";
+import Button from "@/components/Button";
 import Poemtell from "@/components/Poemtell";
-import PoemItem from "@/components/molecules/PoemItem";
+import PoemItem from "@/components/PoemItem";
 import CenterContainer from "@/layouts/CenterContainer";
 import { useState } from "react";
 import PoemDialog from "@/components/PoemDialog";
