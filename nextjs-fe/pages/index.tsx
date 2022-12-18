@@ -3,9 +3,11 @@ import Poemtell from "@/components/Poemtell";
 import PoemItem from "@/components/molecules/PoemItem";
 import CenterContainer from "@/layouts/CenterContainer";
 import { useState } from "react";
+import PoemDialog from "@/components/PoemDialog";
 
 export default function Home() {
   const [poem, setPoem] = useState<any>();
+  const [addPoemIsOpen, setAddPoemOpen] = useState(false);
 
   return (
     <CenterContainer
@@ -20,14 +22,21 @@ export default function Home() {
           <p>Manage all your poems here!</p>
         </div>
         <Button
-          onClick={function () {
-            alert("Add Poem");
+          onClick={() => {
+            setAddPoemOpen(true);
           }}
         >
           Add Poem
         </Button>
       </header>
-      <PoemItem />
+      <PoemDialog
+        title={"Add Poem"}
+        description={"Create a new Dialog"}
+        setOpen={[addPoemIsOpen, setAddPoemOpen]}
+      >
+        testings
+      </PoemDialog>
+      <PoemItem title={""} description={""} generatedDate={""} />
     </CenterContainer>
   );
 }
