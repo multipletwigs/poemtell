@@ -3,7 +3,10 @@ import PoemItem from "@/components/PoemItem";
 import CenterContainer from "@/layouts/CenterContainer";
 import { useEffect, useState } from "react";
 import PoemDialog from "@/components/PoemDialog";
-import { PoemType, GeneratePoemDialogContent } from "../components/PoemDialogContent";
+import {
+  PoemType,
+  GeneratePoemDialogContent,
+} from "../components/PoemDialogContent";
 import { baseUrl } from "@/config";
 
 export const fetchPoems = async () => {
@@ -13,7 +16,6 @@ export const fetchPoems = async () => {
   const poems = await res.json();
   return poems.result;
 };
-
 
 export default function Home() {
   const [addPoemIsOpen, setAddPoemOpen] = useState(false);
@@ -67,7 +69,7 @@ export default function Home() {
             })
           ) : (
             <div className="text-2xl font-bold text-white text-center">
-              No poems found
+              No poems found.
             </div>
           )
         ) : (

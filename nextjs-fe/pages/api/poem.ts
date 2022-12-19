@@ -24,7 +24,7 @@ const handlers = {
   POST: async (req: NextApiRequest, res: NextApiResponse<PoemResponse>) => {
     switch (req.query.action) {
       case "save":
-        const poem: Poem = JSON.parse(req.body);
+        const poem: Poem = req.body;
         const savedPoem = await prismaClient.poem.create({
           data: {
             title: poem.title,
