@@ -93,7 +93,7 @@ export default function Home() {
         <GeneratePoemDialogContent />
       </PoemDialog >
       {poems.length > 0 ? poems.map((poems: PoemType)=>{
-        return <PoemItem title={poems.title} description={poems.prompt} generatedDate={""}>
+        return <PoemItem key={poems.title} title={poems.title} description={poems.prompt} generatedDate={""}>
           <>Poem</>
         </PoemItem>
       }) : <div className="text-2xl font-bold text-white text-center">No poems found</div>}
