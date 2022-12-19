@@ -4,11 +4,11 @@ import { Dialog } from "@headlessui/react";
 interface DialogProps {
   title: ReactNode;
   description: ReactNode;
-  children: ReactNode; 
+  children: ReactNode;
   setOpen: [boolean, Dispatch<SetStateAction<boolean>>];
 }
 
-const PoemDialog = (props: DialogProps) => {
+const PoemDialog = ({ children: poem, ...props }: DialogProps) => {
   const [isOpen, setIsOpen] = props.setOpen;
   return (
     <Dialog
@@ -20,15 +20,11 @@ const PoemDialog = (props: DialogProps) => {
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
         aria-hidden="true"
       />
-      <div className="fixed inset-0 flex items-center justify-center w-3/4 lg:w-1/2 mx-auto">
-        <Dialog.Panel className="bg-slate-700 px-5 py-10 rounded-xl drop-shadow-2xl">
+      <div className="fixed inset-0 mx-auto flex w-3/4 items-center justify-center lg:w-1/2">
+        <Dialog.Panel className="rounded-xl bg-slate-700 px-5 py-10 drop-shadow-2xl">
           <Dialog.Title>{props.title}</Dialog.Title>
-          <Dialog.Description>
-            {props.description}
-          </Dialog.Description>
-
-          {props.children}
-
+          <Dialog.Description>{props.description}</Dialog.Description>
+          {poem}
           <button onClick={() => setIsOpen(false)}>Deactivate</button>
           <button onClick={() => setIsOpen(false)}>Cancel</button>
         </Dialog.Panel>
