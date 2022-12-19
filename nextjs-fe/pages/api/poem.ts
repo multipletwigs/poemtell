@@ -28,10 +28,12 @@ const handlers = {
           data: {
             title: poem.title,
             content: poem.content,
+            AIBehavior: poem.AIBehavior,
+            prompt: poem.prompt,
           },
         });
         res.status(200).json({ result: "Poem saved successfully" });
-        break;
+        break; 
       case "generate":
         const { AIBehavior, poemPrompt } = JSON.parse(req.body);
         const completion = await openai.createCompletion({
@@ -46,9 +48,9 @@ const handlers = {
   },
 };
 
-export default (req: NextApiRequest, res: NextApiResponse<PoemResponse>) => {
+export default async (req: NextApiRequest, res: NextApiResponse<PoemResponse>) => {
   const handler = handlers[req.method as keyof typeof handlers];
   handler
-    ? handler(req, res)
+    ? await handler(req, res)
     : res.status(405).json({ result: "Method not allowed" });
 };

@@ -3,9 +3,16 @@ import PoemItem from "@/components/PoemItem";
 import CenterContainer from "@/layouts/CenterContainer";
 import { useEffect, useState } from "react";
 import PoemDialog from "@/components/PoemDialog";
+import { Poem } from "@prisma/client";
+import { baseUrl } from "@/config/index";
+
+
+interface PoemType extends Pick<Poem, "title" | "content" | "AIBehavior" | "prompt"> {}
 
 const GeneratePoemDialogContent = () => {
-  const [poem, setPoem] = useState<any>({
+  const [poem, setPoem] = useState<PoemType>({
+    title: "",
+    content: "",
     AIBehavior: "",
     prompt: "",
   });
@@ -30,19 +37,33 @@ const GeneratePoemDialogContent = () => {
           onChange={(e) => setPoem(() => ({ ...poem, prompt: e.target.value }))}
         />
       </form>
-      <button onClick={()=>{
-        console.log(poem)
-      }}>Submit</button>
+      <button
+        onClick={() => {
+          console.log(poem);
+        }}
+      >
+        Submit
+      </button>
     </>
   );
 };
 
+const fetchPoems = async () => {
+  const res = await fetch(`${baseUrl}/api/poem`, {
+    method: "GET",
+  });
+  const poems = await res.json();
+  return poems.result;
+}
+
+
 export default function Home() {
   const [addPoemIsOpen, setAddPoemOpen] = useState(false);
+  const [poems, setPoems] = useState<any>([])
 
   useEffect(() => {
-    // fetch poems
-  });
+    fetchPoems().then(setPoems);
+  }, []);
 
   return (
     <CenterContainer
@@ -70,10 +91,12 @@ export default function Home() {
         setOpen={[addPoemIsOpen, setAddPoemOpen]}
       >
         <GeneratePoemDialogContent />
-      </PoemDialog>
-      <PoemItem title={"Poem 1"} description={"About bees"} generatedDate={""}>
-        <p>Bees are cool</p>
-      </PoemItem>
+      </PoemDialog >
+      {poems.length > 0 ? poems.map((poems: PoemType)=>{
+        return <PoemItem title={poems.title} description={poems.prompt} generatedDate={""}>
+          <>Poem</>
+        </PoemItem>
+      }) : <div className="text-2xl font-bold text-white text-center">No poems found</div>}
     </CenterContainer>
   );
 }
