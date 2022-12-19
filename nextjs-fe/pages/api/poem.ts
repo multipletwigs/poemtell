@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { baseUrl } from "@/config";
 import { Poem, PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, CreateCompletionResponse, OpenAIApi } from "openai";
@@ -10,7 +11,6 @@ interface PoemResponse {
 const configuration = new Configuration({
   apiKey: process.env.OPEN_AI_API,
 });
-
 
 const openai = new OpenAIApi(configuration);
 
@@ -34,22 +34,27 @@ const handlers = {
           },
         });
         res.status(200).json({ result: "Poem saved successfully" });
-        break; 
+        break;
       case "generate":
-        const { AIBehavior, poemPrompt } = JSON.parse(req.body);
+        const poemPrompt: Poem = req.body;
         const completion = await openai.createCompletion({
           model: "text-davinci-002",
-          prompt: `You're an AI that is ${AIBehavior}, write me a poem about ${poemPrompt}`,
+          prompt: `You're an AI that is ${poemPrompt.AIBehavior}, write me a poem about ${poemPrompt.prompt}`,
           temperature: 1,
           max_tokens: 256,
         });
         res.status(200).json({ result: completion.data });
         break;
+      default:
+        res.status(400).json({ result: "Bad request" });
     }
   },
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse<PoemResponse>) => {
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse<PoemResponse>,
+) => {
   const handler = handlers[req.method as keyof typeof handlers];
   handler
     ? await handler(req, res)

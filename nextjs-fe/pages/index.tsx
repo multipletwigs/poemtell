@@ -3,63 +3,21 @@ import PoemItem from "@/components/PoemItem";
 import CenterContainer from "@/layouts/CenterContainer";
 import { useEffect, useState } from "react";
 import PoemDialog from "@/components/PoemDialog";
-import { Poem } from "@prisma/client";
-import { baseUrl } from "@/config/index";
+import { PoemType, GeneratePoemDialogContent } from "../components/PoemDialogContent";
+import { baseUrl } from "@/config";
 
-
-interface PoemType extends Pick<Poem, "title" | "content" | "AIBehavior" | "prompt"> {}
-
-const GeneratePoemDialogContent = () => {
-  const [poem, setPoem] = useState<PoemType>({
-    title: "",
-    content: "",
-    AIBehavior: "",
-    prompt: "",
-  });
-
-  return (
-    <>
-      <form>
-        <label htmlFor="AIBehavior">AI Behavior</label>
-        <textarea
-          name="AIBehavior"
-          id="AIBehavior"
-          value={poem.AIBehavior}
-          onChange={(e) =>
-            setPoem(() => ({ ...poem, AIBehavior: e.target.value }))
-          }
-        />
-        <label htmlFor="poem">Prompt</label>
-        <textarea
-          name="poem"
-          id="poem"
-          value={poem.prompt}
-          onChange={(e) => setPoem(() => ({ ...poem, prompt: e.target.value }))}
-        />
-      </form>
-      <button
-        onClick={() => {
-          console.log(poem);
-        }}
-      >
-        Submit
-      </button>
-    </>
-  );
-};
-
-const fetchPoems = async () => {
+export const fetchPoems = async () => {
   const res = await fetch(`${baseUrl}/api/poem`, {
     method: "GET",
   });
   const poems = await res.json();
   return poems.result;
-}
+};
 
 
 export default function Home() {
   const [addPoemIsOpen, setAddPoemOpen] = useState(false);
-  const [poems, setPoems] = useState<any>([])
+  const [poems, setPoems] = useState<PoemType[] | undefined>(undefined);
 
   useEffect(() => {
     fetchPoems().then(setPoems);
@@ -91,12 +49,33 @@ export default function Home() {
         setOpen={[addPoemIsOpen, setAddPoemOpen]}
       >
         <GeneratePoemDialogContent />
-      </PoemDialog >
-      {poems.length > 0 ? poems.map((poems: PoemType)=>{
-        return <PoemItem key={poems.title} title={poems.title} description={poems.prompt} generatedDate={""}>
-          <>Poem</>
-        </PoemItem>
-      }) : <div className="text-2xl font-bold text-white text-center">No poems found</div>}
+      </PoemDialog>
+      <div className="flex flex-col gap-4">
+        {poems ? (
+          poems.length > 0 ? (
+            poems.map((poems: PoemType) => {
+              return (
+                <PoemItem
+                  key={poems.title}
+                  title={poems.title}
+                  description={poems.prompt}
+                  generatedDate={""}
+                >
+                  <>Poem</>
+                </PoemItem>
+              );
+            })
+          ) : (
+            <div className="text-2xl font-bold text-white text-center">
+              No poems found
+            </div>
+          )
+        ) : (
+          <div className="text-2xl font-bold text-white text-center">
+            Fetching poems...
+          </div>
+        )}
+      </div>
     </CenterContainer>
   );
 }
