@@ -11,6 +11,7 @@ const configuration = new Configuration({
   apiKey: process.env.OPEN_AI_API,
 });
 
+
 const openai = new OpenAIApi(configuration);
 
 const prismaClient = new PrismaClient();
