@@ -27,7 +27,7 @@ const CenterContainer = (props: CenterContainerProps) => {
         <meta name="description" content={additionalData.description} />
       </Head>
       <main className="flex h-screen w-full flex-col items-center">
-        <div className="w-3/4 lg:w-1/2">
+        <div className="w-3/4 lg:w-1/2 pb-10">
           <Poemtell />
           {props.children}
         </div>

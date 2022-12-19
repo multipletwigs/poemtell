@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Poem } from "@prisma/client";
 import { baseUrl } from "@/config";
 import PoemDialogForm from "./PoemDialogForm";
+import { useRouter } from "next/router";
 
 export interface PoemType
   extends Pick<Poem, "title" | "content" | "AIBehavior" | "prompt"> {}
@@ -39,13 +40,15 @@ export const GeneratePoemDialogContent = () => {
     prompt: "",
   });
 
+  const router = useRouter();
+
   return (
     <>
-      <PoemDialogForm poemState={[poem, setPoem]}/>
+      <PoemDialogForm poemState={[poem, setPoem]} />
       <div className="text-2xl text-white font-bold mb-4">
         <span className="text-teal-400">poem</span>tell says
       </div>
-      <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10">
+      <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">
         {poem.content.trim()}
       </p>
       <Button
@@ -63,11 +66,17 @@ export const GeneratePoemDialogContent = () => {
         New Poem
       </Button>
       <div className="inline ml-1">
-        <Button btnColor="bg-blue-400" onClick={() => {
-          addPoem(poem).then(() => {
-            setPoem(() => ({ ...poem, content: "Saved Poem!" }));
-          });
-        }}>
+        <Button
+          btnColor="bg-blue-400"
+          onClick={() => {
+            
+            // Simple check if there's actually content for the poem
+            if(poem.content.length === 0) return;
+            addPoem(poem).then(() => {
+              setPoem(() => ({ ...poem, content: "Saved Poem!" }));
+            });
+          }}
+        >
           Save Poem
         </Button>
       </div>

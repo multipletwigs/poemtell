@@ -14,7 +14,7 @@ const Button = (props: ButtonProps) => {
       className={`h-fit rounded-lg ${btnColor} px-5 py-2 font-bold text-white outline-2 outline-slate-100 hover:outline`}
       onClick={() => props.onClick()}
     >
-      { props.children }
+      {props.children}
     </button>
   );
 };

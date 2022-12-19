@@ -59,11 +59,9 @@ export default function Home() {
               return (
                 <PoemItem
                   key={poems.title}
-                  title={poems.title}
-                  description={poems.prompt}
-                  generatedDate={""}
+                  poem={poems}
                 >
-                  <>Poem</>
+                  <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">{poems.content}</p>
                 </PoemItem>
               );
             })

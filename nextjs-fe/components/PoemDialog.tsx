@@ -1,6 +1,7 @@
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
 import { Dialog } from "@headlessui/react";
 import Button from "./Button";
+import { useRouter } from "next/router";
 
 interface DialogProps {
   title: ReactNode;
@@ -11,6 +12,7 @@ interface DialogProps {
 
 const PoemDialog = ({ children: poem, ...props }: DialogProps) => {
   const [isOpen, setIsOpen] = props.setOpen;
+  const router = useRouter();
   return (
     <Dialog
       open={isOpen}
@@ -36,6 +38,7 @@ const PoemDialog = ({ children: poem, ...props }: DialogProps) => {
               btnColor="bg-rose-400/70"
               onClick={() => {
                 setIsOpen(false);
+                router.reload();
               }}
             >
               X
