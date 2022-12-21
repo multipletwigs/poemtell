@@ -38,7 +38,6 @@ const PoemDialog = ({ children: poem, ...props }: DialogProps) => {
               btnColor="bg-rose-400/70"
               onClick={() => {
                 setIsOpen(false);
-                router.reload();
               }}
             >
               X

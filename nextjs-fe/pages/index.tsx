@@ -21,9 +21,9 @@ export default function Home() {
   const [addPoemIsOpen, setAddPoemOpen] = useState(false);
   const [poems, setPoems] = useState<PoemType[] | undefined>(undefined);
 
-  useEffect(() => {
+  setInterval(() => {
     fetchPoems().then(setPoems);
-  }, []);
+  }, 3000);
 
   return (
     <CenterContainer
@@ -57,11 +57,10 @@ export default function Home() {
           poems.length > 0 ? (
             poems.map((poems: PoemType) => {
               return (
-                <PoemItem
-                  key={poems.title}
-                  poem={poems}
-                >
-                  <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">{poems.content}</p>
+                <PoemItem key={poems.title} poem={poems}>
+                  <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">
+                    {poems.content}
+                  </p>
                 </PoemItem>
               );
             })
