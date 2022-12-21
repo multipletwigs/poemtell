@@ -25,6 +25,7 @@ const CenterContainer = (props: CenterContainerProps) => {
       <Head>
         <title>{additionalData.title}</title>
         <meta name="description" content={additionalData.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className="flex h-screen w-full flex-col items-center">
         <div className="w-3/4 lg:w-1/2 pb-10">
