@@ -21,9 +21,17 @@ export default function Home() {
   const [addPoemIsOpen, setAddPoemOpen] = useState(false);
   const [poems, setPoems] = useState<PoemType[] | undefined>(undefined);
 
-  setInterval(() => {
-    fetchPoems().then(setPoems);
-  }, 3000);
+  useEffect(() => {
+    // Resource: https://devtrium.com/posts/set-interval-react
+    const fakeRealTime = setInterval(async () => {
+      console.log("fetching");
+      await fetchPoems().then(setPoems);
+    }, 5000);
+
+    return () => {
+      clearInterval(fakeRealTime);
+    };
+  }, [poems]);
 
   return (
     <CenterContainer
