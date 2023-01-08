@@ -24,7 +24,6 @@ export default function Home() {
   useEffect(() => {
     // Resource: https://devtrium.com/posts/set-interval-react
     const fakeRealTime = setInterval(async () => {
-      console.log("fetching");
       await fetchPoems().then(setPoems);
     }, 5000);
 

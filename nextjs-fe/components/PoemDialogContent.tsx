@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Poem } from "@prisma/client";
 import { baseUrl } from "@/config";
 import PoemDialogForm from "./PoemDialogForm";
-import { useRouter } from "next/router";
 
 export interface PoemType
   extends Pick<Poem, "title" | "content" | "AIBehavior" | "prompt"> {}
@@ -40,7 +39,6 @@ export const GeneratePoemDialogContent = () => {
     prompt: "",
   });
 
-  const router = useRouter();
 
   return (
     <>
