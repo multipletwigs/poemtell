@@ -52,13 +52,15 @@ export default function Home() {
           Add Poem
         </Button>
       </header>
-      <PoemDialog
-        title={"Add Poem"}
-        description={"Create a new Dialog"}
-        setOpen={[addPoemIsOpen, setAddPoemOpen]}
-      >
-        <GeneratePoemDialogContent />
-      </PoemDialog>
+      <div className="h-fit">
+        <PoemDialog
+          title={"Add Poem"}
+          description={"Create a new Dialog"}
+          setOpen={[addPoemIsOpen, setAddPoemOpen]}
+        >
+          <GeneratePoemDialogContent />
+        </PoemDialog>
+      </div>
       <div className="flex flex-col gap-4">
         {poems ? (
           poems.length > 0 ? (

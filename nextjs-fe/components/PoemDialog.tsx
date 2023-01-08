@@ -12,7 +12,6 @@ interface DialogProps {
 
 const PoemDialog = ({ children: poem, ...props }: DialogProps) => {
   const [isOpen, setIsOpen] = props.setOpen;
-  const router = useRouter();
   return (
     <Dialog
       open={isOpen}

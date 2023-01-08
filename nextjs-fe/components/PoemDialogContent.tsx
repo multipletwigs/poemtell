@@ -39,37 +39,35 @@ export const GeneratePoemDialogContent = () => {
     prompt: "",
   });
 
-
   return (
     <>
       <PoemDialogForm poemState={[poem, setPoem]} />
       <div className="text-2xl text-white font-bold mb-4">
         <span className="text-teal-400">poem</span>tell says
       </div>
-      <p className="text-white max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">
+      <p className="text-white max-h-32 md:max-h-96 overflow-y-auto whitespace-pre-line mb-10 scrollbar">
         {poem.content.trim()}
       </p>
-      <Button
-        onClick={() => {
-          setPoem(() => ({ ...poem, content: "Generating text..." }));
-          fetchNewPoem(poem).then((newPoem) => {
-            const text = newPoem.result.choices[0].text.replace(
-              /\\n\\n/g,
-              "\n",
-            );
-            setPoem(() => ({ ...poem, content: text }));
-          });
-        }}
-      >
-        New Poem
-      </Button>
-      <div className="inline ml-1">
+      <div className="flex flex-col gap-3 md:flex-row">
+        <Button
+          onClick={() => {
+            setPoem(() => ({ ...poem, content: "Generating text..." }));
+            fetchNewPoem(poem).then((newPoem) => {
+              const text = newPoem.result.choices[0].text.replace(
+                /\\n\\n/g,
+                "\n",
+              );
+              setPoem(() => ({ ...poem, content: text }));
+            });
+          }}
+        >
+          New Poem
+        </Button>
         <Button
           btnColor="bg-blue-400"
           onClick={() => {
-            
             // Simple check if there's actually content for the poem
-            if(poem.content.length === 0) return;
+            if (poem.content.length === 0) return;
             addPoem(poem).then(() => {
               setPoem(() => ({ ...poem, content: "Saved Poem!" }));
             });
